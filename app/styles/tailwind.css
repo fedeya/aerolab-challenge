@@ -504,20 +504,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 20rem;
 }
 
-.h-16 {
-  height: 4rem;
-}
-
-.h-14 {
-  height: 3.5rem;
-}
-
 .h-12 {
   height: 3rem;
-}
-
-.h-96 {
-  height: 24rem;
 }
 
 .w-full {
@@ -557,10 +545,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 1.5rem;
 }
 
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -569,10 +557,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .rounded-xl {
@@ -583,30 +571,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 0.375rem;
 }
 
-.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
 .border {
   border-width: 1px;
-}
-
-.border-b {
-  border-bottom-width: 1px;
 }
 
 .border-r {
   border-right-width: 1px;
 }
 
-.border-\[\#DAE4F2\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(218 228 242 / var(--tw-border-opacity));
-}
-
-.border-neutral-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(124 137 156 / var(--tw-border-opacity));
+.border-b {
+  border-bottom-width: 1px;
 }
 
 .border-neutral-300 {
@@ -614,14 +588,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(218 228 242 / var(--tw-border-opacity));
 }
 
-.border-l-neutral-600 {
+.border-\[\#DAE4F2\] {
   --tw-border-opacity: 1;
-  border-left-color: rgb(124 137 156 / var(--tw-border-opacity));
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  border-color: rgb(218 228 242 / var(--tw-border-opacity));
 }
 
 .bg-neutral-200 {
@@ -629,14 +598,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(230 237 247 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-neutral-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(218 228 242 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#E6F0FF\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(230 240 255 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -670,14 +639,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.5rem;
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .px-10 {
@@ -690,16 +659,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom: 1rem;
 }
 
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
-}
-
 .pr-6 {
   padding-right: 1.5rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .text-lg {
@@ -729,9 +694,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-transform: uppercase;
 }
 
-.text-neutral-900 {
+.text-white {
   --tw-text-opacity: 1;
-  color: rgb(37 47 61 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-transparent {
+  color: transparent;
 }
 
 .text-neutral-600 {
@@ -739,18 +708,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(124 137 156 / var(--tw-text-opacity));
 }
 
-.text-white {
+.text-neutral-900 {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(37 47 61 / var(--tw-text-opacity));
 }
 
 .text-brand-primary {
   --tw-text-opacity: 1;
   color: rgb(23 111 235 / var(--tw-text-opacity));
-}
-
-.text-transparent {
-  color: transparent;
 }
 
 .shadow-lg {

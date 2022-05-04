@@ -8,6 +8,7 @@
     "build": "run-s build:*",
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
+    "deploy": "fly deploy --remote-only",
     "dev": "run-p dev:*",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "remix dev",
@@ -17,7 +18,6 @@
   "dependencies": {
     "@remix-run/node": "^1.4.3",
     "@remix-run/react": "^1.4.3",
-    "@remix-run/vercel": "^1.4.3",
     "@vercel/node": "^1.14.0",
     "axios": "^0.27.2",
     "clsx": "^1.1.1",
