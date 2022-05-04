@@ -10,7 +10,6 @@ import ProductList from '~/components/ProductList';
 export type LoaderData = {
   products: Product[];
   categories: string[];
-  sortBy: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -28,8 +27,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         sortBy: (sortBy as any) || 'recent',
         limit: 16
       }),
-      categories: await getCategories(),
-      sortBy: sortBy || 'recent'
+      categories: await getCategories()
     },
     {
       headers: {

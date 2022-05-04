@@ -3,7 +3,8 @@ import {
   Form,
   useLoaderData,
   useSubmit,
-  useTransition
+  useTransition,
+  useSearchParams
 } from '@remix-run/react';
 import type { LoaderData } from '~/routes';
 import clsx from 'clsx';
@@ -37,6 +38,7 @@ const Button: React.FC<ButtonProps> = ({ isActive, ...props }) => {
 const Filters: React.FC = () => {
   const data = useLoaderData<LoaderData>();
   const transition = useTransition();
+  const [params] = useSearchParams();
   const submit = useSubmit();
 
   const sortBy = useMemo(() => {
@@ -47,8 +49,8 @@ const Filters: React.FC = () => {
 
     if (transition.state === 'submitting' && !transitionSortBy) return 'recent';
 
-    return data.sortBy;
-  }, [data.sortBy, transition]);
+    return params.get('sortBy') || 'recent';
+  }, [params, transition]);
 
   return (
     <div className="w-full mb-6">
@@ -62,7 +64,7 @@ const Filters: React.FC = () => {
         <div className="border-r border-neutral-300 pr-6">
           <label className="flex items-center space-x-2">
             <span>Filter by:</span>
-            <select name="category">
+            <select defaultValue={params.get('category') || ''} name="category">
               <option value="">All Products</option>
 
               {data.categories.map(category => (
@@ -75,7 +77,7 @@ const Filters: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <p>Sort by</p>
+          <p>Sort by:</p>
 
           <Button name="sortBy" value="recent" isActive={sortBy === 'recent'}>
             Most Recent
