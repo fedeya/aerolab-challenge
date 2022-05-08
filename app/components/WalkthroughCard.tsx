@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import clsx from 'clsx';
+import Image, { MimeType } from 'remix-image';
 
 type WalkthroughCardProps = {
   title: string;
@@ -24,7 +25,30 @@ const WalkthroughCard: FC<WalkthroughCardProps> = ({
       )}
     >
       <div className="bg-[linear-gradient(102.47deg,#7296EB_-5.34%,#EAC0E9_106.58%,#EAC0E9_106.58%)] rounded-t-[24px] h-60 lg:h-full">
-        <img src={image} alt={title} className="object-cover w-full h-full " />
+        <Image
+          src={image}
+          responsive={[
+            {
+              size: {
+                width: 500,
+                height: 500
+              },
+              maxWidth: 1048
+            },
+            {
+              size: {
+                width: 400,
+                height: 300
+              },
+              maxWidth: 375
+            }
+          ]}
+          options={{
+            contentType: MimeType.WEBP
+          }}
+          alt={title}
+          className="object-cover w-full h-full "
+        />
       </div>
 
       <div className="p-4 border bg-white border-neutral-300 rounded-b-[24px]">

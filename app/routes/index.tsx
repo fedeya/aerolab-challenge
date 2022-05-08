@@ -2,6 +2,7 @@ import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import type { Product } from '~/models/api.server';
 
 import { json } from '@remix-run/node';
+import Image, { MimeType } from 'remix-image';
 
 import { getProducts, getCategories } from '~/models/api.server';
 
@@ -108,7 +109,16 @@ export default function Index() {
         <div className="relative justify-center hidden pr-10 2xl:flex -top-20">
           <div className="absolute w-full h-[33rem] max-w-xl shadow-lg bottom-0 z-10 bg-[linear-gradient(102.47deg,#7296EB_-5.34%,#EAC0E9_106.58%,#EAC0E9_106.58%)] rounded-[104px]" />
 
-          <img
+          <Image
+            responsive={[
+              {
+                size: {
+                  width: 720,
+                  height: 720
+                }
+              }
+            ]}
+            options={{ contentType: MimeType.WEBP }}
             className="relative z-20 h-[45rem]"
             src="/images/hero-desktop.png"
             alt="hero desktop"
@@ -120,7 +130,19 @@ export default function Index() {
         <div className="pt-20 absolute 2xl:bottom-12 h-full lg:h-[35rem] w-full bg-[linear-gradient(102.47deg,#7296EB_-5.34%,#EAC0E9_106.58%,#EAC0E9_106.58%)] 2xl:h-[500px]" />
 
         <div className="absolute 2xl:hidden flex items-center justify-center w-full -top-[340px] lg:-top-[440px]">
-          <img src="/images/hero-responsive.png" alt="Hero" />
+          <Image
+            responsive={[
+              {
+                size: {
+                  width: 540,
+                  height: 540
+                }
+              }
+            ]}
+            options={{ contentType: MimeType.WEBP }}
+            src="/images/hero-responsive.png"
+            alt="Hero"
+          />
         </div>
 
         <WalkthroughCard
