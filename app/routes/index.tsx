@@ -69,7 +69,7 @@ export default function Index() {
     <div>
       <Navbar />
 
-      <div className="flex bg-[url('/patterns/wave.svg')] bg-repeat items-center justify-center w-full h-full space-x-28 p-4">
+      <div className="flex mt-10 bg-[url('/patterns/wave.svg')] bg-repeat items-center justify-center w-full h-full space-x-28 p-4">
         <div className="flex flex-col items-center justify-center h-full max-w-2xl 2xl:items-start 2xl:pl-40">
           <p className="mb-2 text-lg font-semibold uppercase text-neutral-600">
             Explore the
