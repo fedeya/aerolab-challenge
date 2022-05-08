@@ -127,7 +127,7 @@ export default function Index() {
       </div>
 
       <div className="relative bg-repeat flex flex-col lg:flex-row items-center justify-center p-4 mb-16 lg:space-y-0 space-y-4 lg:space-x-4 mt-80 lg:mt-[450px] 2xl:space-x-0 2xl:px-32 3xl:px-64 2xl:mb-28 2xl:mt-10">
-        <div className="pt-20 absolute 2xl:bottom-12 h-full lg:h-[35rem] w-full bg-[linear-gradient(102.47deg,#7296EB_-5.34%,#EAC0E9_106.58%,#EAC0E9_106.58%)] 2xl:h-[500px]" />
+        <div className="pt-20 absolute 2xl:bottom-12 bottom-0 h-[calc(100%+200px)] lg:h-[calc(100%+110px)] w-full bg-[linear-gradient(102.47deg,#7296EB_-5.34%,#EAC0E9_106.58%,#EAC0E9_106.58%)] 2xl:h-[500px]" />
 
         <div className="absolute 2xl:hidden flex items-center justify-center w-full -top-[340px] lg:-top-[440px]">
           <Image
