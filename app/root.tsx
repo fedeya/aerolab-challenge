@@ -20,6 +20,11 @@ import globals from './styles/globals.css';
 
 export const links: LinksFunction = () => [
   {
+    rel: 'icon',
+    href: '/favicon.png',
+    type: 'image/png'
+  },
+  {
     rel: 'preconnect',
     href: 'https://fonts.googleapis.com'
   },

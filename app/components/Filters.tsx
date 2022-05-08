@@ -158,7 +158,7 @@ const Filters: React.FC = () => {
           </fieldset>
         </div>
 
-        <fieldset className="flex items-center justify-between px-4 py-3 space-x-4 border border-neutral-300 rounded-2xl">
+        <fieldset className="items-center justify-between hidden px-4 py-3 space-x-4 border lg:flex border-neutral-300 rounded-2xl">
           <button
             name="page"
             value={page - 1}
