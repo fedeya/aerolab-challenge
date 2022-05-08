@@ -1,4 +1,4 @@
-import type { LoaderFunction } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import type { Product } from '~/models/api.server';
 
 import { json } from '@remix-run/node';
@@ -8,6 +8,8 @@ import { getProducts, getCategories } from '~/models/api.server';
 import ProductList from '~/components/ProductList';
 import Navbar from '~/components/Navbar';
 import WalkthroughCard from '~/components/WalkthroughCard';
+import { redeem, addPoints } from '../models/api.server';
+import invariant from 'tiny-invariant';
 
 export type LoaderData = {
   products: Product[];
@@ -37,6 +39,28 @@ export const loader: LoaderFunction = async ({ request }) => {
     pages: products.pages,
     categories
   });
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+
+  const { id, action, amount } = Object.fromEntries(formData.entries());
+
+  if (action === 'redeem') {
+    invariant(id, 'id is required');
+
+    const { message } = await redeem(id.toString());
+
+    return json({ message });
+  }
+
+  if (action === 'addPoints') {
+    invariant(amount, 'amount is required');
+
+    const { message } = await addPoints(+amount.toString());
+
+    return json({ message });
+  }
 };
 
 export default function Index() {

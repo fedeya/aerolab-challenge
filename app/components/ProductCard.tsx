@@ -1,33 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
 import type { Product } from '~/models/api.server';
 import { useUser } from '~/utils';
 import Aero from './icons/Aero';
 import Image from 'remix-image';
 import clsx from 'clsx';
+import { useFetcher } from '@remix-run/react';
+import { useEffect } from 'react';
 
 type ProductCardProps = {
   product: Product;
 };
 
-const useImageLoaded = () => {
-  const [loaded, setLoaded] = useState(false);
-  const ref = useRef<HTMLImageElement>(null);
-
-  const onLoad = () => {
-    setLoaded(true);
-  };
-
-  useEffect(() => {
-    if (ref.current && ref.current.complete) {
-      onLoad();
-    }
-  });
-
-  return [ref, loaded, onLoad] as const;
-};
-
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const user = useUser();
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (fetcher.type === 'done' && fetcher.data) {
+      console.log(fetcher.data);
+    }
+  }, [fetcher.data, fetcher.type]);
 
   return (
     <div className="flex flex-col justify-between h-full space-y-2">
@@ -68,19 +59,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {user && user.points < product.cost && (
-        <button className="px-6 py-4 bg-neutral-200 font-semibold text-lg shadow-[0px_2px_8px_rgba(0,0,0,0.05)] text-neutral-600 rounded-xl">
+        <button
+          disabled
+          className="px-6 py-4 bg-neutral-200 font-semibold text-lg shadow-[0px_2px_8px_rgba(0,0,0,0.05)] cursor-not-allowed text-neutral-600 rounded-xl"
+        >
           You need {product.cost.toLocaleString()}
         </button>
       )}
 
       {user && user.points >= product.cost && (
-        <button className="w-full flex items-center justify-center space-x-2 font-semibold text-lg bg-gradient-to-r from-brand-primary shadow-[0px_2px_8px_rgba(0,0,0,0.05)] to-brand-secondary rounded-xl px-6 py-4 text-white">
-          <span>Redeem for</span>
+        <fetcher.Form method="post">
+          <input type="text" hidden name="id" value={product._id} />
+          <button
+            name="action"
+            disabled={fetcher.state === 'submitting'}
+            value="redeem"
+            className="w-full flex items-center justify-center space-x-2 font-semibold text-lg bg-gradient-to-r from-brand-primary shadow-[0px_2px_8px_rgba(0,0,0,0.05)] to-brand-secondary rounded-xl px-6 py-4 text-white"
+          >
+            {fetcher.state === 'submitting' ? (
+              'Processing...'
+            ) : (
+              <>
+                <span>Redeem for</span>
 
-          <Aero />
+                <Aero />
 
-          <span>{product.cost.toLocaleString()}</span>
-        </button>
+                <span>{product.cost.toLocaleString()}</span>
+              </>
+            )}
+          </button>
+        </fetcher.Form>
       )}
     </div>
   );

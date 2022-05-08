@@ -38,7 +38,7 @@ export interface User {
   _id: string;
   name: string;
   points: number;
-  createdDate: string;
+  createDate: string;
   redeemHistory: any[];
 }
 
@@ -99,6 +99,20 @@ export const getProducts = async (params?: {
     total,
     pages: params?.limit ? Math.ceil(total / params.limit) : 1
   };
+};
+
+export const redeem = async (productId: string) => {
+  const res = await client.post<{ message: string }>('/redeem', { productId });
+
+  return res.data;
+};
+
+export const addPoints = async (amount: number) => {
+  const res = await client.post<{ message: string }>('/user/points', {
+    amount
+  });
+
+  return res.data;
 };
 
 export const getCategories = async () => {
