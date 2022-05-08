@@ -70,7 +70,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       {user && user.points >= product.cost && (
         <fetcher.Form method="post">
-          <input type="text" hidden name="id" value={product._id} />
+          <input type="text" readOnly hidden name="id" value={product._id} />
           <button
             name="action"
             disabled={fetcher.state === 'submitting'}
