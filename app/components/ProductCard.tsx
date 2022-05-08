@@ -1,7 +1,7 @@
 import type { Product } from '~/models/api.server';
 import { useUser } from '~/utils';
 import Aero from './icons/Aero';
-import Image from 'remix-image';
+import Image, { MimeType } from 'remix-image';
 import clsx from 'clsx';
 import { useFetcher } from '@remix-run/react';
 import { useEffect } from 'react';
@@ -30,6 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             src={product.img.hdUrl || product.img.url}
             loading="lazy"
             alt={product.name}
+            options={{ contentType: MimeType.WEBP }}
             className={clsx(
               'object-contain duration-700 ease-in-out'
               // !loaded
