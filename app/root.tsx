@@ -45,7 +45,20 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'Aerolab Challenge',
-  viewport: 'width=device-width,initial-scale=1'
+  viewport: 'width=device-width,initial-scale=1',
+  description: 'Aerolab Challenge maded by Fedeya',
+  keywords: 'aerolab, challenge, fedeya',
+  'og:image': '/og.jpg',
+  'og:type': 'website',
+  'og:url': 'https://aerolab-challenge.fly.dev',
+  'og:description': 'Aerolab Challenge maded by Fedeya',
+  'og:title': 'Aerolab Challenge',
+  'twitter:card': 'summary_large_image',
+  'twitter:creator': '@fede_minaya',
+  'twitter:url': 'https://aerolab-challenge.fly.dev',
+  'twitter:title': 'Aerolab Challenge',
+  'twitter:description': 'Aerolab Challenge maded by Fedeya',
+  'twitter:image': '/og.jpg'
 });
 
 export const loader: LoaderFunction = async () => {
