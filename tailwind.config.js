@@ -5,6 +5,9 @@ module.exports = {
       fontFamily: {
         sans: ['Montserrat', 'sans-serif']
       },
+      screens: {
+        '3xl': '1920px'
+      },
       colors: {
         neutral: {
           DEFAULT: '#fff',

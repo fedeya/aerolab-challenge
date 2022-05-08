@@ -1,4 +1,5 @@
 import axios from 'axios';
+import LRU from 'lru-cache';
 
 const client = axios.create({
   baseURL: 'https://coding-challenge-api.aerolab.co',
@@ -6,6 +7,21 @@ const client = axios.create({
     Authorization: `Bearer ${process.env.AEROLAB_API_TOKEN}`
   }
 });
+
+let cache: LRU<string, any>;
+
+declare global {
+  var __cache: LRU<string, any> | undefined;
+}
+
+if (!global.__cache) {
+  global.__cache = new LRU<string, any>({
+    max: 1000,
+    maxAge: 1000 * 60 * 60
+  });
+}
+
+cache = global.__cache;
 
 export interface Product {
   _id: string;
@@ -32,9 +48,29 @@ export const getProducts = async (params?: {
   sortBy?: 'recent' | 'highestCost' | 'lowestCost';
   limit?: number;
 }) => {
-  const res = await client.get<Product[]>('/products');
+  let products: Product[] = [];
 
-  let products = res.data;
+  const productsPromise = client.get<Product[]>('/products').then(res => {
+    cache.set('products', res.data);
+
+    console.log('Updated Products Cache');
+
+    return res.data;
+  });
+
+  try {
+    const productsInCache = cache.get('products');
+
+    if (productsInCache) {
+      products = productsInCache;
+    } else {
+      const productsResponse = await productsPromise;
+
+      products = productsResponse;
+    }
+  } catch (err) {
+    console.log(err);
+  }
 
   if (params?.category) {
     products = products.filter(
@@ -49,6 +85,8 @@ export const getProducts = async (params?: {
     );
   }
 
+  const total = products.length;
+
   if (params?.page) {
     products = products.slice(
       (params.page - 1) * params.limit!,
@@ -56,13 +94,17 @@ export const getProducts = async (params?: {
     );
   }
 
-  return products;
+  return {
+    data: products,
+    total,
+    pages: params?.limit ? Math.ceil(total / params.limit) : 1
+  };
 };
 
 export const getCategories = async () => {
   const products = await getProducts();
 
-  const categories = new Set(products.map(product => product.category));
+  const categories = new Set(products.data.map(product => product.category));
 
   return Array.from(categories);
 };
