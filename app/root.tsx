@@ -34,7 +34,7 @@ export const links: LinksFunction = () => [
     crossOrigin: 'anonymous'
   },
   {
-    href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;900&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&display=swap',
     rel: 'stylesheet',
     as: 'style'
   },
@@ -46,18 +46,20 @@ export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'Aerolab Challenge',
   viewport: 'width=device-width,initial-scale=1',
-  description: 'Aerolab Challenge maded by Fedeya',
+  description: 'Aerolab Challenge made by Fedeya',
   keywords: 'aerolab, challenge, fedeya',
   'og:image': '/og.jpg',
+  'og:image:width': '1200',
+  'og:image:height': '630',
   'og:type': 'website',
   'og:url': 'https://aerolab-challenge.fly.dev',
-  'og:description': 'Aerolab Challenge maded by Fedeya',
+  'og:description': 'Aerolab Challenge made by Fedeya',
   'og:title': 'Aerolab Challenge',
   'twitter:card': 'summary_large_image',
   'twitter:creator': '@fede_minaya',
   'twitter:url': 'https://aerolab-challenge.fly.dev',
   'twitter:title': 'Aerolab Challenge',
-  'twitter:description': 'Aerolab Challenge maded by Fedeya',
+  'twitter:description': 'Aerolab Challenge made by Fedeya',
   'twitter:image': '/og.jpg'
 });
 
