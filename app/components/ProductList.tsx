@@ -43,8 +43,8 @@ const ProductList: React.FC = () => {
         </div>
       )}
 
-      <div className="relative mt-16 w-full flex space-y-8 flex-col lg:flex-row lg:space-y-0 items-center justify-center">
-        <Paginator className="flex lg:absolute right-0" />
+      <div className="relative mt-16 w-full flex space-y-8 flex-col xl:flex-row xl:space-y-0 items-center justify-center">
+        <Paginator className="flex xl:absolute right-0" />
 
         <p className="w-full text-center text-lg text-neutral-600">
           <span className="bg-gradient-to-r from-brand-primary to-brand-secondary text-transparent bg-clip-text">
