@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import clsx from 'clsx';
 import Image, { MimeType } from 'remix-image';
+import { m } from 'framer-motion';
 
 type WalkthroughCardProps = {
   title: string;
@@ -18,7 +19,13 @@ const WalkthroughCard: FC<WalkthroughCardProps> = ({
   icon
 }) => {
   return (
-    <div
+    <m.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{
+        opacity: 1,
+        scale: 1
+      }}
+      viewport={{ once: true }}
       className={clsx(
         'border border-neutral-300 max-w-sm 2xl:max-w-2xl 2xl:bg-opacity-100 bg-opacity-80 bg-white rounded-[32px] p-4 lg:p-2',
         className
@@ -66,7 +73,7 @@ const WalkthroughCard: FC<WalkthroughCardProps> = ({
           {description}
         </p>
       </div>
-    </div>
+    </m.div>
   );
 };
 

@@ -7,35 +7,7 @@ import {
   useSearchParams
 } from '@remix-run/react';
 import type { LoaderData } from '~/routes';
-import clsx from 'clsx';
-
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  isActive?: boolean;
-};
-
-const Button: React.FC<ButtonProps> = ({ isActive, ...props }) => {
-  return (
-    <button
-      {...props}
-      className={clsx(
-        'px-6 transition-all hover:opacity-80 ease-in rounded-xl 2xl:mr-0 mr-2 py-2',
-        isActive
-          ? 'bg-gradient-to-r from-brand-primary to-brand-secondary'
-          : 'bg-neutral-200'
-      )}
-    >
-      <span
-        className={clsx('font-semibold', {
-          'text-white': isActive,
-          'bg-gradient-to-r font-semibold bg-clip-text from-brand-primary text-transparent to-brand-secondary':
-            !isActive
-        })}
-      >
-        {props.children}
-      </span>
-    </button>
-  );
-};
+import Button from './Button';
 
 const Filters: React.FC = () => {
   const data = useLoaderData<LoaderData>();
@@ -131,7 +103,8 @@ const Filters: React.FC = () => {
               type="button"
               name="sortBy"
               value="recent"
-              isActive={sortBy === 'recent'}
+              className="px-6 py-2 mr-2 rounded-xl 2xl:mr-0"
+              outline={sortBy !== 'recent'}
             >
               Most Recent
             </Button>
@@ -140,8 +113,9 @@ const Filters: React.FC = () => {
               name="sortBy"
               value="lowestCost"
               type="button"
+              className="px-6 py-2 mr-2 rounded-xl 2xl:mr-0"
               onClick={() => sort('lowestCost')}
-              isActive={sortBy === 'lowestCost'}
+              outline={sortBy !== 'lowestCost'}
             >
               Lowest Price
             </Button>
@@ -150,8 +124,9 @@ const Filters: React.FC = () => {
               name="sortBy"
               value="highestCost"
               type="button"
+              className="px-6 py-2 mr-2 rounded-xl 2xl:mr-0"
               onClick={() => sort('highestCost')}
-              isActive={sortBy === 'highestCost'}
+              outline={sortBy !== 'highestCost'}
             >
               Highest Price
             </Button>

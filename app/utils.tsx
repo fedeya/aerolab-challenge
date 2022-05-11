@@ -1,4 +1,5 @@
 import { useMatches } from '@remix-run/react';
+import type { AxiosError } from 'axios';
 import { useMemo } from 'react';
 import type { User } from './models/api.server';
 
@@ -25,4 +26,8 @@ export function useUser(): User {
     );
   }
   return data.user;
+}
+
+export function isAxiosError<T>(err: any): err is AxiosError<T> {
+  return err.response && err.response.data;
 }

@@ -19,14 +19,13 @@ const Button: FC<ButtonProps> = ({ outline, ...props }) => {
         props.className
       )}
     >
-      <span
-        className={clsx({
-          'bg-gradient-to-r text-transparent bg-clip-text from-brand-primary to-brand-secondary':
-            outline
-        })}
-      >
-        {props.children}
-      </span>
+      {outline ? (
+        <span className="text-transparent bg-gradient-to-r bg-clip-text from-brand-primary to-brand-secondary">
+          {props.children}
+        </span>
+      ) : (
+        props.children
+      )}
     </button>
   );
 };

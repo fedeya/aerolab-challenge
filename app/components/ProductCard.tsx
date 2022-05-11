@@ -2,9 +2,12 @@ import type { Product } from '~/models/api.server';
 import { useUser } from '~/utils';
 import Aero from './icons/Aero';
 import Image, { MimeType } from 'remix-image';
-import clsx from 'clsx';
 import { useFetcher } from '@remix-run/react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import Button from './Button';
+import { m } from 'framer-motion';
+import toast from 'react-hot-toast';
+import clsx from 'clsx';
 
 type ProductCardProps = {
   product: Product;
@@ -14,29 +17,81 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const user = useUser();
   const fetcher = useFetcher();
 
+  const fire = useCallback(
+    (success: boolean) => {
+      toast.custom(
+        t => (
+          <div
+            className={clsx(
+              'flex items-center  justify-between p-6 space-x-4 text-lg bg-white border-2 rounded-xl',
+              success ? 'border-green' : 'border-red',
+              t.visible ? 'animate-enter' : 'animate-leave'
+            )}
+          >
+            <div className="flex items-center space-x-2">
+              {success ? (
+                <img
+                  src="/icons/success.svg"
+                  className="w-[26px] h-[26px]"
+                  alt="Success"
+                />
+              ) : (
+                <img
+                  src="/icons/error.svg"
+                  className="w-[26px] h-[26px]"
+                  alt="Error"
+                />
+              )}
+
+              <p className="font-semibold text-neutral-600">
+                {success ? (
+                  <>
+                    <span className="mr-2 text-neutral-900">
+                      {product.name}
+                    </span>
+                    redeemed successfully
+                  </>
+                ) : (
+                  <>There was a problem with the transaction</>
+                )}
+              </p>
+            </div>
+
+            <button onClick={() => toast.dismiss(t.id)}>
+              <img className="" src="/icons/close.svg" alt="Close" />
+            </button>
+          </div>
+        ),
+        {
+          duration: 3000
+        }
+      );
+    },
+    [product.name]
+  );
+
   useEffect(() => {
     if (fetcher.type === 'done' && fetcher.data) {
-      console.log(fetcher.data);
+      fire(fetcher.data.ok);
     }
-  }, [fetcher.data, fetcher.type]);
+  }, [fetcher.data, fetcher.type, fire]);
+
+  const isSubmitting =
+    fetcher.state === 'submitting' || fetcher.state === 'loading';
 
   return (
-    <div className="flex flex-col justify-between h-full space-y-2">
+    <m.div
+      whileHover={{ scale: 1.05 }}
+      className="flex flex-col justify-between h-full space-y-2"
+    >
       <div className="bg-white h-full relative rounded-xl border border-[#DAE4F2] py-2 shadow-lg">
         <div className="border-b flex items-center justify-center py-12 h-60 px-8 border-[#DAE4F2]">
           <Image
-            // ref={ref}
-            // onLoad={onLoad}
             src={product.img.hdUrl || product.img.url}
             loading="lazy"
             alt={product.name}
             options={{ contentType: MimeType.WEBP }}
-            className={clsx(
-              'object-contain duration-700 ease-in-out'
-              // !loaded
-              //   ? 'grayscale blur-2xl scale-110'
-              //   : 'grayscale-0 blur-0 scale-100'
-            )}
+            className="object-contain duration-700 ease-in-out"
             responsive={[
               {
                 size: {
@@ -45,9 +100,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 }
               }
             ]}
-            // width="200"
-            // height="200"
-            // decoding="async"
           />
         </div>
 
@@ -71,13 +123,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {user && user.points >= product.cost && (
         <fetcher.Form method="post">
           <input type="text" readOnly hidden name="id" value={product._id} />
-          <button
-            name="action"
+          <Button
             disabled={fetcher.state === 'submitting'}
-            value="redeem"
-            className="w-full flex items-center justify-center space-x-2 font-semibold text-lg bg-gradient-to-r from-brand-primary shadow-[0px_2px_8px_rgba(0,0,0,0.05)] to-brand-secondary rounded-xl px-6 py-4 text-white"
+            className="w-full flex items-center justify-center space-x-2 font-semibold text-lg shadow-[0px_2px_8px_rgba(0,0,0,0.05)] rounded-xl px-6 py-4"
           >
-            {fetcher.state === 'submitting' ? (
+            {isSubmitting ? (
               'Processing...'
             ) : (
               <>
@@ -88,10 +138,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <span>{product.cost.toLocaleString()}</span>
               </>
             )}
-          </button>
+          </Button>
         </fetcher.Form>
       )}
-    </div>
+    </m.div>
   );
 };
 

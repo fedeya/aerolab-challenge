@@ -4,6 +4,7 @@ import { useLoaderData, useTransition } from '@remix-run/react';
 
 import ProductCard from './ProductCard';
 import Filters from './Filters';
+import ProductCardSkeleton from './ProductCardSkeleton';
 
 const ProductList: React.FC = () => {
   const { products } = useLoaderData<LoaderData>();
@@ -20,19 +21,24 @@ const ProductList: React.FC = () => {
 
       <Filters />
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {transition.state === 'submitting'
-          ? Array.from({ length: 16 }).map((_, index) => (
-              <div key={index} className="flex flex-col space-y-2">
-                <div className="w-full bg-white border rounded-md animate-pulse h-80 border-neutral-300" />
+      {transition.state === 'submitting' && (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: products.length }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
+        </div>
+      )}
 
-                <div className="w-full mt-4 bg-white border rounded-md animate-pulse border-neutral-300 h-14" />
-              </div>
-            ))
-          : products?.map(product => (
-              <ProductCard product={product} key={product._id} />
-            ))}
-      </div>
+      {transition.state === 'idle' && (
+        <div
+          // initial={{ translateX: -200 }}
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
+          {products?.map(product => (
+            <ProductCard product={product} key={product._id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

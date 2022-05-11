@@ -1,7 +1,8 @@
 import type {
   MetaFunction,
   LinksFunction,
-  LoaderFunction
+  LoaderFunction,
+  ActionFunction
 } from '@remix-run/node';
 import type { ShouldReloadFunction } from '@remix-run/react';
 import {
@@ -13,10 +14,14 @@ import {
   ScrollRestoration
 } from '@remix-run/react';
 import { json } from '@remix-run/node';
-import { getUser } from './models/api.server';
+import { addPoints, getUser } from './models/api.server';
 
 import styles from './styles/tailwind.css';
 import globals from './styles/globals.css';
+import Layout from './components/Layout';
+import invariant from 'tiny-invariant';
+import { isAxiosError } from './utils';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 export const links: LinksFunction = () => [
   {
@@ -69,6 +74,23 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+
+  const { amount } = Object.fromEntries(formData.entries());
+
+  invariant(amount, 'amount is required');
+
+  try {
+    const { message } = await addPoints(+amount.toString());
+
+    return json({ message, ok: true });
+  } catch (err) {
+    if (isAxiosError<{ message: string }>(err))
+      return json({ message: err.response?.data.message, ok: false });
+  }
+};
+
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) => {
   return !!submission && submission.method !== 'GET';
 };
@@ -81,7 +103,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <LazyMotion features={domAnimation}>
+          <Layout>
+            <Outlet />
+          </Layout>
+        </LazyMotion>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
