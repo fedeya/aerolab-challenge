@@ -23,9 +23,9 @@ const WalkthroughCard: FC<WalkthroughCardProps> = ({
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{
         opacity: 1,
-        scale: 1
+        scale: 1,
       }}
-      viewport={{ once: true }}
+      viewport={{ once: true, amount: 0.5 }}
       className={clsx(
         'border border-neutral-300 max-w-sm 2xl:max-w-2xl 2xl:bg-opacity-100 bg-opacity-80 bg-white rounded-[32px] p-4 lg:p-2',
         className

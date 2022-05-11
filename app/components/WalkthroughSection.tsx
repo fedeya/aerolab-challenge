@@ -25,7 +25,7 @@ export default function WalkthroughSection() {
       <WalkthroughCard
         title="1—browse"
         icon="/icons/browse.svg"
-        className="relative 2xl:-rotate-3 2xl:-right-20"
+        className="relative 2xl:!-rotate-3 2xl:-right-20"
         description="Browse our tech catalog with more than 20 top tech products"
         image="/images/walkthroug-1-desktop.png"
       />
@@ -41,7 +41,7 @@ export default function WalkthroughSection() {
       <WalkthroughCard
         title="3—Enjoy!"
         icon="/icons/star.svg"
-        className="relative 2xl:rotate-3 2xl:right-16"
+        className="relative 2xl:!rotate-3 2xl:right-16"
         description="All done, you can relax! We’ll take care of delivery of your tech item!"
         image="/images/walkthroug-3-desktop.png"
       />
