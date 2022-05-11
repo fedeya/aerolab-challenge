@@ -15,6 +15,7 @@ import { isAxiosError } from '~/utils';
 export type LoaderData = {
   products: Product[];
   pages: number;
+  total: number;
   categories: string[];
 };
 
@@ -38,6 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({
     products: products.data,
     pages: products.pages,
+    total: products.total,
     categories
   });
 };

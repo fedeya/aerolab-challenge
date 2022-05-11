@@ -129,7 +129,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               d="M0 12.5C0 5.87258 5.37258 0.5 12 0.5V0.5C18.6274 0.5 24 5.87258 24 12.5V12.5C24 19.1274 18.6274 24.5 12 24.5V24.5C5.37258 24.5 0 19.1274 0 12.5V12.5Z"
               fill="#8FA3BF"
             />
-            <g clip-path="url(#clip0_8537_1622)">
+            <g clipPath="url(#clip0_8537_1622)">
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"

@@ -1,14 +1,18 @@
 import type { LoaderData } from '~/routes';
 
-import { useLoaderData, useTransition } from '@remix-run/react';
+import { useLoaderData, useSearchParams, useTransition } from '@remix-run/react';
 
 import ProductCard from './ProductCard';
 import Filters from './Filters';
 import ProductCardSkeleton from './ProductCardSkeleton';
+import Paginator from './Paginator';
 
 const ProductList: React.FC = () => {
-  const { products } = useLoaderData<LoaderData>();
+  const { products, total } = useLoaderData<LoaderData>();
+  const [params] = useSearchParams();
   const transition = useTransition();
+
+  const page = +(params.get('page') || '1') || 1;
 
   return (
     <div id="products" className="px-10 py-4 mt-4 2xl:px-40 3xl:px-80">
@@ -31,7 +35,6 @@ const ProductList: React.FC = () => {
 
       {transition.state === 'idle' && (
         <div
-          // initial={{ translateX: -200 }}
           className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {products?.map(product => (
@@ -39,6 +42,18 @@ const ProductList: React.FC = () => {
           ))}
         </div>
       )}
+
+      <div className="relative mt-16 w-full flex space-y-4 flex-col lg:flex-row lg:space-y-0 items-center justify-center">
+        <Paginator className="flex lg:absolute right-0" />
+
+        <p className="w-full text-center text-lg text-neutral-600">
+          <span className="bg-gradient-to-r from-brand-primary to-brand-secondary text-transparent bg-clip-text">
+            {products.length * page} of {total}
+          </span>{' '}
+          products
+        </p>
+      </div>
+
     </div>
   );
 };

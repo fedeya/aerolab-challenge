@@ -8,6 +8,7 @@ import {
 } from '@remix-run/react';
 import type { LoaderData } from '~/routes';
 import Button from './Button';
+import Paginator from './Paginator';
 
 const Filters: React.FC = () => {
   const data = useLoaderData<LoaderData>();
@@ -42,19 +43,6 @@ const Filters: React.FC = () => {
     );
   };
 
-  const goToPage = (page: number) => {
-    submit(
-      {
-        category: params.get('category') || '',
-        sortBy: sortBy.toString(),
-        page: page.toString()
-      },
-      {
-        replace: true,
-        action: '/'
-      }
-    );
-  };
 
   return (
     <div className="w-full mb-6">
@@ -133,36 +121,7 @@ const Filters: React.FC = () => {
           </fieldset>
         </div>
 
-        <fieldset className="items-center justify-between hidden px-4 py-3 space-x-4 border lg:flex border-neutral-300 rounded-2xl">
-          <button
-            name="page"
-            value={page - 1}
-            disabled={page === 1}
-            type="button"
-            onClick={() => goToPage(page - 1)}
-            className="p-2 rotate-180 rounded-lg disabled:cursor-not-allowed disabled:bg-neutral-200 bg-brand-light"
-          >
-            <img src="/icons/ios-arrow.svg" alt="Go Back Page" />
-          </button>
-
-          <p className="text-lg font-semibold">
-            Page{' '}
-            <span className="text-transparent bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text">
-              {page} of {data.pages}
-            </span>
-          </p>
-
-          <button
-            name="page"
-            value={page + 1}
-            type="button"
-            onClick={() => goToPage(page + 1)}
-            disabled={page === data.pages}
-            className="p-2 rounded-lg disabled:bg-neutral-200 disabled:cursor-not-allowed bg-brand-light"
-          >
-            <img src="/icons/ios-arrow.svg" alt="Go Next Page" />
-          </button>
-        </fieldset>
+        <Paginator className="hidden lg:flex" />
       </Form>
     </div>
   );
