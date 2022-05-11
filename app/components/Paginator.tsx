@@ -44,7 +44,7 @@ const Paginator: FC<PaginatorProps> = ({ className }) => {
         <img src="/icons/ios-arrow.svg" alt="Go Back Page" />
       </button>
 
-      <p className="text-lg font-semibold">
+      <p className="text-lg text-neutral-600 font-semibold">
         Page{' '}
         <span className="text-transparent bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text">
           {page} of {data.pages}
