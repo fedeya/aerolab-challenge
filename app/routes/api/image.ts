@@ -14,7 +14,7 @@ export const fetchImage: Resolver = async (asset, url, options, basePath) => {
 };
 
 const config: LoaderConfig = {
-  selfUrl: 'http://localhost:3000',
+  selfUrl: `http://localhost:${process.env.PORT || 3000}`,
   cache: new DiskCache(),
   transformer: sharpTransformer,
   resolver: fetchImage
